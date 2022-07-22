@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class UtilsData {
   static String capitalize(String data) {
     return "${data[0].toUpperCase()}${data.substring(1).toLowerCase()}";
@@ -13,5 +15,11 @@ class UtilsData {
       replacer = url.replaceAll(".png", ".png?token=$token");
     }
     return replacer;
+  }
+
+  static String parseDateData(int time) {
+    var dt = DateTime.fromMillisecondsSinceEpoch(time * 1000);
+    var d24 = DateFormat('dd/MM/yyyy, HH:mm').format(dt);
+    return d24;
   }
 }

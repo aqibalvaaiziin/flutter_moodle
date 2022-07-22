@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_moodle/helper/global_variable.dart';
+import 'package:flutter_moodle/helper/utils.dart';
 import 'package:flutter_moodle/screens/secondary_screen/chat_forum_screen/chat_forum_screen.dart';
 import 'package:flutter_moodle/screens/secondary_screen/forum_screen/forum_screen_view_model.dart';
 import 'package:flutter_moodle/widgets/custom_widget.dart';
@@ -21,7 +22,8 @@ class ForumScreenView extends ForumScreenViewModel {
           ),
         ),
       ),
-      // body: Text("dsadsadasdsa"),
+      // body: Text("dsadsadasdsa"),s
+
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -37,8 +39,8 @@ class ForumScreenView extends ForumScreenViewModel {
                           e['userpictureurl'],
                           e['usermodifiedpictureurl'],
                           e['usermodifiedfullname'],
-                          e['created'].toString(),
-                          e['modified'].toString(),
+                          e['created'],
+                          e['modified'],
                         )
                       : e['name'].toLowerCase().contains(filter.toLowerCase())
                           ? cardDiscussion(
@@ -48,8 +50,8 @@ class ForumScreenView extends ForumScreenViewModel {
                               e['userpictureurl'],
                               e['usermodifiedpictureurl'],
                               e['usermodifiedfullname'],
-                              e['created'].toString(),
-                              e['modified'].toString(),
+                              e['created'],
+                              e['modified'],
                             )
                           : const SizedBox();
                 })
@@ -102,8 +104,8 @@ class ForumScreenView extends ForumScreenViewModel {
     String authorImage,
     String lastAuthorImage,
     String lastAuthor,
-    String dateCreated,
-    String lastModified,
+    int dateCreated,
+    int lastModified,
   ) {
     return Container(
       margin: EdgeInsets.symmetric(
@@ -182,7 +184,7 @@ class ForumScreenView extends ForumScreenViewModel {
     String author,
     String authorImage,
     String lastAuthorImage,
-    String date,
+    int date,
     bool isRight,
   ) {
     return Column(
@@ -207,7 +209,7 @@ class ForumScreenView extends ForumScreenViewModel {
                       const SizedBox(height: 3),
                       customText(
                         width * 0.025,
-                        date,
+                        UtilsData.parseDateData(date),
                       ),
                     ],
                   ),
@@ -237,7 +239,7 @@ class ForumScreenView extends ForumScreenViewModel {
                       const SizedBox(height: 3),
                       customText(
                         width * 0.025,
-                        date,
+                        UtilsData.parseDateData(date),
                       ),
                     ],
                   ),

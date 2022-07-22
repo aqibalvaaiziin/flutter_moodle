@@ -30,7 +30,7 @@ class ChatForumScreenView extends ChatForumScreenViewModel {
                   mainObject['subject'],
                   mainObject['author']['fullname'],
                   mainObject['author']['urls']['profileimage'],
-                  mainObject['timecreated'].toString(),
+                  mainObject['timecreated'],
                   mainObject['message'],
                 ),
                 // Expanded(
@@ -136,7 +136,7 @@ class ChatForumScreenView extends ChatForumScreenViewModel {
                   dataChat[index]['replysubject'],
                   dataChat[index]['author']['fullname'],
                   dataChat[index]['author']['urls']['profileimage'],
-                  dataChat[index]['timecreated'].toString(),
+                  dataChat[index]['timecreated'],
                   dataChat[index]['message'],
                   isList: true,
                 );
@@ -150,7 +150,7 @@ class ChatForumScreenView extends ChatForumScreenViewModel {
     String subject,
     String author,
     String authorImage,
-    String time,
+    int time,
     String message, {
     bool isList = false,
   }) {
@@ -194,7 +194,9 @@ class ChatForumScreenView extends ChatForumScreenViewModel {
                 SizedBox(height: height * 0.003),
                 customText(
                   width * 0.028,
-                  isMe == authorId ? "by Me - $time" : "by $author - $time",
+                  isMe == authorId
+                      ? "by Me - ${UtilsData.parseDateData(time)}"
+                      : "by $author - ${UtilsData.parseDateData(time)}",
                   color: isMe == authorId ? CustomColor.mainColor : Colors.grey,
                   fw: isMe == authorId ? FontWeight.bold : FontWeight.normal,
                 ),
