@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_moodle/helper/global_variable.dart';
 import 'package:flutter_moodle/helper/utils.dart';
 import 'package:flutter_moodle/screens/secondary_screen/detail_modul_screen/detail_modul_screen.dart';
 import 'package:flutter_moodle/screens/secondary_screen/forum_screen/forum_screen.dart';
@@ -21,6 +22,7 @@ class ModuleScreenView extends ModuleScreenViewModel {
             fontSize: 17,
           ),
         ),
+        backgroundColor: CustomColor.mainColor,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -53,7 +55,7 @@ class ModuleScreenView extends ModuleScreenViewModel {
             decoration: BoxDecoration(
               color: name.toLowerCase().contains("forum")
                   ? Colors.orange
-                  : Colors.blue,
+                  : CustomColor.mainColor,
               boxShadow: customShadow(),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(6),
@@ -168,7 +170,7 @@ class ModuleScreenView extends ModuleScreenViewModel {
       width: width * 0.1,
       height: width * 0.1,
       decoration: BoxDecoration(
-        color: type == "forum" ? Colors.orange : Colors.blue,
+        color: type == "forum" ? Colors.orange : CustomColor.mainColor,
         borderRadius: BorderRadius.circular(6),
       ),
       child: Center(

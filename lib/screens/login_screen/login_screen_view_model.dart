@@ -59,12 +59,20 @@ abstract class LoginScreenViewModel extends State<LoginScreen> {
           isLoading = false;
         });
       } else {
-        preferencesData.setUserData(
-          username.text,
-          jsonObject['token'],
-        );
+        setUserData(jsonObject['token'], username.text);
         nextPageRemove(context, const NavigationControl());
       }
+    });
+  }
+
+  setUserData(String token, String username) {
+    UserServices.getUserProfileOnLogin(token, username).then((value) {
+      var jsonObject = jsonDecode(jsonEncode(value.data));
+      preferencesData.setUserData(
+        username,
+        token,
+        jsonObject[0]['id'],
+      );
     });
   }
 

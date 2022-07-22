@@ -47,4 +47,32 @@ class CourseServices {
       "$baseUrl?wstoken=$token&wsfunction=mod_forum_get_forum_discussions&moodlewsrestformat=json&forumid=$forumId",
     );
   }
+
+  static Future getMainDiscussion(int postId) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    String token = sp.getString("token")!;
+    return await dio.get(
+      "$baseUrl?wstoken=$token&wsfunction=mod_forum_get_discussion_post&moodlewsrestformat=json&postid=$postId",
+    );
+  }
+
+  static Future getListDiscussionByDiscussion(int discussionId) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    String token = sp.getString("token")!;
+    return await dio.get(
+      "$baseUrl?wstoken=$token&wsfunction=mod_forum_get_discussion_posts&moodlewsrestformat=json&discussionid=$discussionId",
+    );
+  }
+
+  static Future sendFeedbackDiscussion(
+    int postId,
+    String subject,
+    String message,
+  ) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    String token = sp.getString("token")!;
+    return await dio.post(
+      "$baseUrl?wstoken=$token&wsfunction=mod_forum_add_discussion_post&moodlewsrestformat=json&postid=$postId&subject=$subject&message=$message",
+    );
+  }
 }

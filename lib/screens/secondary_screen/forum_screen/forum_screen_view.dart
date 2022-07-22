@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_moodle/helper/global_variable.dart';
 import 'package:flutter_moodle/screens/secondary_screen/chat_forum_screen/chat_forum_screen.dart';
 import 'package:flutter_moodle/screens/secondary_screen/forum_screen/forum_screen_view_model.dart';
 import 'package:flutter_moodle/widgets/custom_widget.dart';
@@ -33,6 +34,8 @@ class ForumScreenView extends ForumScreenViewModel {
                           e['id'],
                           e['name'],
                           e['userfullname'],
+                          e['userpictureurl'],
+                          e['usermodifiedpictureurl'],
                           e['usermodifiedfullname'],
                           e['created'].toString(),
                           e['modified'].toString(),
@@ -42,6 +45,8 @@ class ForumScreenView extends ForumScreenViewModel {
                               e['id'],
                               e['name'],
                               e['userfullname'],
+                              e['userpictureurl'],
+                              e['usermodifiedpictureurl'],
                               e['usermodifiedfullname'],
                               e['created'].toString(),
                               e['modified'].toString(),
@@ -94,6 +99,8 @@ class ForumScreenView extends ForumScreenViewModel {
     int postId,
     String discussionName,
     String author,
+    String authorImage,
+    String lastAuthorImage,
     String lastAuthor,
     String dateCreated,
     String lastModified,
@@ -140,13 +147,27 @@ class ForumScreenView extends ForumScreenViewModel {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  boxUser("Di mulai", author, dateCreated, true),
+                  boxUser(
+                    "Di mulai",
+                    author,
+                    authorImage,
+                    lastAuthorImage,
+                    dateCreated,
+                    true,
+                  ),
                   Container(
                     width: 2,
                     height: height * 0.08,
                     color: Colors.grey,
                   ),
-                  boxUser("Terakhir dilihat", lastAuthor, lastModified, false),
+                  boxUser(
+                    "Terakhir dilihat",
+                    lastAuthor,
+                    authorImage,
+                    lastAuthorImage,
+                    lastModified,
+                    false,
+                  ),
                 ],
               ),
             ),
@@ -159,6 +180,8 @@ class ForumScreenView extends ForumScreenViewModel {
   Widget boxUser(
     String time,
     String author,
+    String authorImage,
+    String lastAuthorImage,
     String date,
     bool isRight,
   ) {
@@ -193,14 +216,16 @@ class ForumScreenView extends ForumScreenViewModel {
               width: width * 0.08,
               height: width * 0.08,
               decoration: BoxDecoration(
-                color: !isRight ? Colors.grey : Colors.blue,
+                color: !isRight ? Colors.grey : CustomColor.mainColor,
                 shape: BoxShape.circle,
               ),
-              child: const Center(
-                  child: Icon(
-                Icons.person,
-                color: Colors.white,
-              )),
+              child: Center(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child:
+                      Image.network(!isRight ? lastAuthorImage : authorImage),
+                ),
+              ),
             ),
             SizedBox(width: width * 0.01),
             !isRight

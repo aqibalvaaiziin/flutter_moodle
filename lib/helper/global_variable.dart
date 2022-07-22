@@ -9,17 +9,13 @@ class CustomImage {
 }
 
 class CustomColor {
-  static Color brown = const Color(0xff480d0b);
-  static Color red = const Color(0xffb43a23);
-  static Color yellow = const Color(0xfffbbe49);
-  static Color krem = const Color(0xffffe6b3);
-  static Color bubble = const Color(0xff075e54);
-  static Color bubblein = const Color(0xff084a42);
-  static Color dock = const Color(0xff22282D);
+  static Color mainColor = const Color(0xff212a4f);
   static Color input = const Color(0xff3B4043);
-  static Color sender = const Color(0xff2C3338);
-  static Color reply = const Color(0xff252B2F);
+  static Color cicrle1 = const Color(0xff283154);
+  static Color cicrle2 = const Color(0xff313852);
+  static Color cicrle3 = const Color(0xff404763);
 }
+// 212a4f
 
 const String lorem =
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque voluptas voluptatibus id neque! Numquam sit tempore quasi facilis quam, quas corporis ea voluptates, ipsum optio, corrupti dolore inventore quia hic?";

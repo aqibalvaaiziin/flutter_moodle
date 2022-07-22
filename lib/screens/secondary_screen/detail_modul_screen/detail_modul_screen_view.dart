@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_moodle/helper/global_variable.dart';
 import 'package:flutter_moodle/helper/utils.dart';
 import 'package:flutter_moodle/widgets/custom_widget.dart';
 import './detail_modul_screen_view_model.dart';
@@ -19,6 +20,7 @@ class DetailModulScreenView extends DetailModulScreenViewModel {
             fontSize: 17,
           ),
         ),
+        backgroundColor: CustomColor.mainColor,
       ),
       body: isLoading
           ? loaderPage()

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_moodle/api/services/course_services.dart';
 import 'package:flutter_moodle/screens/main_screen/courses_screen/courses_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class CoursesScreenViewModel extends State<CoursesScreen> {
   TextEditingController searchTextController = TextEditingController();
@@ -10,16 +11,20 @@ abstract class CoursesScreenViewModel extends State<CoursesScreen> {
   double width = 0.0;
   double height = 0.0;
   List courses = [];
-  String token = "c49ea9d10ef8b6096192167acecd236d";
+  String token = "";
 
   getDataCourses() {
-    CourseServices.getListCourses().then((value) {
+    CourseServices.getListCourses().then((value) async {
+      SharedPreferences sp = await SharedPreferences.getInstance();
+
       var jsonObject = jsonDecode(jsonEncode(value.data));
       // ignore: avoid_print
       setState(() {
         jsonObject['courses'].forEach((e) {
           courses.add(e);
         });
+
+        token = sp.getString("token")!;
       });
     });
   }

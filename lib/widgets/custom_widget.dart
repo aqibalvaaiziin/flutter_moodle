@@ -93,9 +93,9 @@ Widget headerText(
 }
 
 Widget loaderPage() {
-  return const Center(
+  return Center(
     child: CircularProgressIndicator(
-      color: Colors.blue,
+      color: CustomColor.mainColor,
     ),
   );
 }
@@ -109,7 +109,7 @@ Widget loadingScreenBlock() {
       child: Center(
         // ignore: prefer_const_constructors
         child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation(CustomColor.brown),
+          valueColor: AlwaysStoppedAnimation(CustomColor.mainColor),
         ),
       ),
     ),

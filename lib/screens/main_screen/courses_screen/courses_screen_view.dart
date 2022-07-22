@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_moodle/helper/global_variable.dart';
 import 'package:flutter_moodle/screens/main_screen/courses_screen/courses_screen_view_model.dart';
 import 'package:flutter_moodle/screens/secondary_screen/module_screen/module_screen.dart';
 import 'package:flutter_moodle/widgets/custom_widget.dart';
@@ -49,7 +50,7 @@ class CoursesScreenView extends CoursesScreenViewModel {
     return Container(
       width: width,
       height: 80,
-      color: Colors.white,
+      color: CustomColor.mainColor,
       child: Container(
         height: 60.0,
         padding: const EdgeInsets.only(left: 20, top: 8),
@@ -58,9 +59,9 @@ class CoursesScreenView extends CoursesScreenViewModel {
           vertical: height * 0.015,
         ),
         decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(5),
-            boxShadow: customShadow()),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(5),
+        ),
         child: TextField(
           controller: searchTextController,
           decoration: const InputDecoration(

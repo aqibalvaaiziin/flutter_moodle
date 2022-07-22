@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_moodle/helper/global_variable.dart';
 import 'package:flutter_moodle/screens/main_screen/courses_screen/courses_screen.dart';
 import 'package:flutter_moodle/screens/main_screen/profile_screen/profile_screen.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NavigationControl extends StatefulWidget {
   const NavigationControl({Key? key}) : super(key: key);
@@ -42,16 +44,18 @@ class _NavigationControlState extends State<NavigationControl> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Courses',
+            icon: Icon(FontAwesomeIcons.book),
+            label: 'Pelajaran',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Profile',
+            icon: Icon(FontAwesomeIcons.user),
+            label: 'Biodata',
           ),
         ],
         currentIndex: selectedIndex,
         selectedItemColor: Colors.amber[800],
+        backgroundColor: CustomColor.mainColor,
+        unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
       ),
     );
