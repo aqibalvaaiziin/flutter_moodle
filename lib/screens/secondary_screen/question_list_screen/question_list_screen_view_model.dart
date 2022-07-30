@@ -34,6 +34,9 @@ abstract class QuestionListScreenViewModel extends State<QuestionListScreen> {
   }
 
   submitQuiz() {
+    setState(() {
+      isLoading = true;
+    });
     QuizServices.submitQuiz(widget.quizId, widget.attemptId).then((value) {
       nextPageRemove(context, const NavigationControl());
       ScaffoldMessenger.of(context).showSnackBar(ujianSelesai);
