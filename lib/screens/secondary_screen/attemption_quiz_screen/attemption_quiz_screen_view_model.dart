@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_moodle/api/services/course_services.dart';
 import 'package:flutter_moodle/helper/preferences_data.dart';
 import 'package:flutter_moodle/screens/secondary_screen/attemption_quiz_screen/attemption_quiz_screen.dart';
-import 'package:flutter_moodle/screens/secondary_screen/quiz_screen/quiz_screen.dart';
+import 'package:flutter_moodle/screens/secondary_screen/question_list_screen/question_list_screen.dart';
 import 'package:flutter_moodle/widgets/custom_widget.dart';
 import 'package:flutter_moodle/widgets/route.dart';
 
@@ -37,19 +37,29 @@ abstract class AttemptionQuizScreenViewModel
   }
 
   attemptionAction() {
+    setState(() {
+      isLoading = true;
+    });
     CourseServices.getDataAttemption(quizId).then((value) {
       var jsonObject = jsonDecode(jsonEncode(value.data));
 
       if (jsonObject['errorcode'] == "attemptstillinprogress") {
         ScaffoldMessenger.of(context).showSnackBar(gagalAttempt);
+        setState(() {
+          isLoading = false;
+        });
       } else {
         int attemptId = jsonObject['attempt']['id'];
         preferencesData.setQuizData(quizId, attemptId);
+        setState(() {
+          isLoading = false;
+        });
         nextPage(
           context,
-          QuizScreen(
+          QuestionListScreen(
             attemptId: attemptId,
             quizName: widget.quizName,
+            quizId: quizId,
           ),
         );
       }

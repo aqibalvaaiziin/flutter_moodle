@@ -137,7 +137,7 @@ class LoginScreenView extends LoginScreenViewModel {
       children: [
         SizedBox(height: height * 0.03),
         inputForm(
-          "email",
+          "Username",
           Icons.person,
           username,
         ),
