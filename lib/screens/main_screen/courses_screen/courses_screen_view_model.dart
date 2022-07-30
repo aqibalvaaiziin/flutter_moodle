@@ -12,6 +12,7 @@ abstract class CoursesScreenViewModel extends State<CoursesScreen> {
   double height = 0.0;
   List courses = [];
   String token = "";
+  bool isLoading = true;
 
   getDataCourses() {
     CourseServices.getListCourses().then((value) async {
@@ -25,6 +26,7 @@ abstract class CoursesScreenViewModel extends State<CoursesScreen> {
         });
 
         token = sp.getString("token")!;
+        isLoading = false;
       });
     });
   }

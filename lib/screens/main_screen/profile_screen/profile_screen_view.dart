@@ -172,7 +172,7 @@ class ProfileScreenView extends ProfileScreenViewModel {
                     SizedBox(height: height * 0.005),
                     customText(
                       width * 0.03,
-                      value,
+                      value == "" ? "--" : value,
                     ),
                   ],
                 ),

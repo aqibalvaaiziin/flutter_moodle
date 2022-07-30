@@ -25,23 +25,13 @@ class ChatForumScreenView extends ChatForumScreenViewModel {
           ? loaderPage()
           : Column(
               children: [
-                buildBoxDiscussion(
-                  mainObject['author']['id'],
-                  mainObject['subject'],
-                  mainObject['author']['fullname'],
-                  mainObject['author']['urls']['profileimage'],
-                  mainObject['timecreated'],
-                  mainObject['message'],
-                ),
-                // Expanded(
-                //   child: SingleChildScrollView(
-                //     child: Column(
-                //       children: <Widget>[
-                //         buildMessageList(),
-                //         const SizedBox(height: 10),
-                //       ],
-                //     ),
-                //   ),
+                // buildBoxDiscussion(
+                //   mainObject['author']['id'],
+                //   mainObject['subject'],
+                //   mainObject['author']['fullname'],
+                //   mainObject['author']['urls']['profileimage'],
+                //   mainObject['timecreated'],
+                //   mainObject['message'],
                 // ),
                 buildMessageList(),
                 buildInputArea(),
@@ -80,6 +70,9 @@ class ChatForumScreenView extends ChatForumScreenViewModel {
         child: MaterialButton(
           padding: EdgeInsets.zero,
           onPressed: () {
+            setState(() {
+              isLoader = true;
+            });
             sendFeedback();
           },
           child: Center(
@@ -124,7 +117,7 @@ class ChatForumScreenView extends ChatForumScreenViewModel {
   Widget buildMessageList() {
     return Expanded(
       child: ListView.builder(
-        reverse: true,
+        // reverse: true,
         shrinkWrap: true,
         controller: scrollController,
         itemCount: dataChat.length,
@@ -132,12 +125,12 @@ class ChatForumScreenView extends ChatForumScreenViewModel {
           return dataChat[index]['id'] == mainObject['id']
               ? const SizedBox()
               : buildBoxDiscussion(
-                  dataChat[index]['author']['id'],
                   dataChat[index]['replysubject'],
+                  dataChat[index]['message'],
+                  dataChat[index]['timecreated'],
+                  dataChat[index]['author']['id'],
                   dataChat[index]['author']['fullname'],
                   dataChat[index]['author']['urls']['profileimage'],
-                  dataChat[index]['timecreated'],
-                  dataChat[index]['message'],
                   isList: true,
                 );
         },
@@ -146,12 +139,12 @@ class ChatForumScreenView extends ChatForumScreenViewModel {
   }
 
   Widget buildBoxDiscussion(
-    int authorId,
     String subject,
-    String author,
-    String authorImage,
+    String message,
     int time,
-    String message, {
+    int authorId,
+    String author,
+    String authorImage, {
     bool isList = false,
   }) {
     return Container(

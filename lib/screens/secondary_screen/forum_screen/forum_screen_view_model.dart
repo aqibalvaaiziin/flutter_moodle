@@ -10,8 +10,9 @@ abstract class ForumScreenViewModel extends State<ForumScreen> {
   double width = 0.0;
   double height = 0.0;
   List forums = [];
-  String token = "c49ea9d10ef8b6096192167acecd236d";
+  // String token = "c49ea9d10ef8b6096192167acecd236d";
   int forumId = 0;
+  bool isLoading = true;
 
   getIdForumDicussion() {
     CourseServices.getIdCourses(widget.courseId).then((value) {
@@ -33,6 +34,7 @@ abstract class ForumScreenViewModel extends State<ForumScreen> {
         jsonObject['discussions'].forEach((e) {
           forums.add(e);
         });
+        isLoading = false;
       });
     });
   }

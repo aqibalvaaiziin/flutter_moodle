@@ -24,43 +24,55 @@ class ForumScreenView extends ForumScreenViewModel {
       ),
       // body: Text("dsadsadasdsa"),s
 
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
+      body: isLoading
+          ? loaderPage()
+          : Stack(
               children: [
-                const SizedBox(height: 90),
-                ...forums.map((e) {
-                  return filter == ""
-                      ? cardDiscussion(
-                          e['id'],
-                          e['name'],
-                          e['userfullname'],
-                          e['userpictureurl'],
-                          e['usermodifiedpictureurl'],
-                          e['usermodifiedfullname'],
-                          e['created'],
-                          e['modified'],
-                        )
-                      : e['name'].toLowerCase().contains(filter.toLowerCase())
-                          ? cardDiscussion(
-                              e['id'],
-                              e['name'],
-                              e['userfullname'],
-                              e['userpictureurl'],
-                              e['usermodifiedpictureurl'],
-                              e['usermodifiedfullname'],
-                              e['created'],
-                              e['modified'],
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 90),
+                      ...forums.map((e) {
+                        return filter == ""
+                            ? cardDiscussion(
+                                e['id'],
+                                e['name'],
+                                e['userfullname'],
+                                e['userpictureurl'],
+                                e['usermodifiedpictureurl'],
+                                e['usermodifiedfullname'],
+                                e['created'],
+                                e['modified'],
+                              )
+                            : e['name']
+                                    .toLowerCase()
+                                    .contains(filter.toLowerCase())
+                                ? cardDiscussion(
+                                    e['id'],
+                                    e['name'],
+                                    e['userfullname'],
+                                    e['userpictureurl'],
+                                    e['usermodifiedpictureurl'],
+                                    e['usermodifiedfullname'],
+                                    e['created'],
+                                    e['modified'],
+                                  )
+                                : const SizedBox();
+                      }),
+                      forums.isEmpty
+                          ? Center(
+                              child: customText(
+                                width * 0.04,
+                                "Tidak ada pembahasan",
+                              ),
                             )
-                          : const SizedBox();
-                })
+                          : const SizedBox()
+                    ],
+                  ),
+                ),
+                searchInput()
               ],
             ),
-          ),
-          searchInput(),
-        ],
-      ),
     );
   }
 
@@ -145,30 +157,34 @@ class ForumScreenView extends ForumScreenViewModel {
               color: Colors.grey,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  boxUser(
-                    "Di mulai",
-                    author,
-                    authorImage,
-                    lastAuthorImage,
-                    dateCreated,
-                    true,
+                  Expanded(
+                    child: boxUser(
+                      "Di mulai",
+                      author,
+                      authorImage,
+                      lastAuthorImage,
+                      dateCreated,
+                      true,
+                    ),
                   ),
                   Container(
                     width: 2,
                     height: height * 0.08,
                     color: Colors.grey,
                   ),
-                  boxUser(
-                    "Terakhir dilihat",
-                    lastAuthor,
-                    authorImage,
-                    lastAuthorImage,
-                    lastModified,
-                    false,
+                  Expanded(
+                    child: boxUser(
+                      "Terakhir dilihat",
+                      lastAuthor,
+                      authorImage,
+                      lastAuthorImage,
+                      lastModified,
+                      false,
+                    ),
                   ),
                 ],
               ),
@@ -199,53 +215,76 @@ class ForumScreenView extends ForumScreenViewModel {
         ),
         const SizedBox(height: 6),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             isRight
+                ? imageUser(isRight, authorImage, lastAuthorImage)
+                : const SizedBox(),
+            SizedBox(width: width * 0.01),
+            isRight
                 ? const SizedBox()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      customText(width * 0.03, author, fw: FontWeight.bold),
-                      const SizedBox(height: 3),
-                      customText(
-                        width * 0.025,
-                        UtilsData.parseDateData(date),
-                      ),
-                    ],
+                : Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        customText(
+                          width * 0.028,
+                          author,
+                          fw: FontWeight.bold,
+                          ta: TextAlign.right,
+                        ),
+                        const SizedBox(height: 3),
+                        customText(
+                          width * 0.025,
+                          UtilsData.parseDateData(date),
+                        ),
+                      ],
+                    ),
                   ),
-            SizedBox(width: width * 0.01),
-            Container(
-              width: width * 0.08,
-              height: width * 0.08,
-              decoration: BoxDecoration(
-                color: !isRight ? Colors.grey : CustomColor.mainColor,
-                shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child:
-                      Image.network(!isRight ? lastAuthorImage : authorImage),
-                ),
-              ),
-            ),
-            SizedBox(width: width * 0.01),
             !isRight
                 ? const SizedBox()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      customText(width * 0.03, author, fw: FontWeight.bold),
-                      const SizedBox(height: 3),
-                      customText(
-                        width * 0.025,
-                        UtilsData.parseDateData(date),
-                      ),
-                    ],
+                : Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        customText(
+                          width * 0.028,
+                          author,
+                          fw: FontWeight.bold,
+                          ta: TextAlign.left,
+                        ),
+                        const SizedBox(height: 3),
+                        customText(
+                          width * 0.025,
+                          UtilsData.parseDateData(date),
+                        ),
+                      ],
+                    ),
                   ),
+            SizedBox(width: width * 0.01),
+            !isRight
+                ? imageUser(isRight, authorImage, lastAuthorImage)
+                : const SizedBox(),
           ],
         ),
       ],
+    );
+  }
+
+  Widget imageUser(bool isRight, String authorImage, String lastAuthorImage) {
+    return Container(
+      width: width * 0.08,
+      height: width * 0.08,
+      decoration: BoxDecoration(
+        color: !isRight ? Colors.grey : CustomColor.mainColor,
+        shape: BoxShape.circle,
+      ),
+      child: Center(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(100),
+          child: Image.network(!isRight ? lastAuthorImage : authorImage),
+        ),
+      ),
     );
   }
 

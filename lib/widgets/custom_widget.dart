@@ -29,7 +29,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xfffcfcfc),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         appBar: widget.appBar,
         key: widget.scaffoldKey,
         body: widget.body,

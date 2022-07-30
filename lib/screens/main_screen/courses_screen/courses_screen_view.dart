@@ -11,37 +11,39 @@ class CoursesScreenView extends CoursesScreenViewModel {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return CustomScaffold(
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
+      body: isLoading
+          ? loaderPage()
+          : Stack(
               children: [
-                const SizedBox(height: 90),
-                ...courses.map((e) {
-                  return filter == ""
-                      ? cardCourse(
-                          e['id'],
-                          e['displayname'],
-                          e['contacts'][0]['fullname'],
-                          "${e['overviewfiles'][0]['fileurl']}?token=$token",
-                        )
-                      : e['displayname']
-                              .toLowerCase()
-                              .contains(filter.toLowerCase())
-                          ? cardCourse(
-                              e['id'],
-                              e['displayname'],
-                              e['contacts'][0]['fullname'],
-                              "${e['overviewfiles'][0]['fileurl']}?token=$token",
-                            )
-                          : const SizedBox();
-                })
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 90),
+                      ...courses.map((e) {
+                        return filter == ""
+                            ? cardCourse(
+                                e['id'],
+                                e['displayname'],
+                                e['contacts'][0]['fullname'],
+                                "${e['overviewfiles'][0]['fileurl']}?token=$token",
+                              )
+                            : e['displayname']
+                                    .toLowerCase()
+                                    .contains(filter.toLowerCase())
+                                ? cardCourse(
+                                    e['id'],
+                                    e['displayname'],
+                                    e['contacts'][0]['fullname'],
+                                    "${e['overviewfiles'][0]['fileurl']}?token=$token",
+                                  )
+                                : const SizedBox();
+                      })
+                    ],
+                  ),
+                ),
+                searchInput(),
               ],
             ),
-          ),
-          searchInput(),
-        ],
-      ),
     );
   }
 

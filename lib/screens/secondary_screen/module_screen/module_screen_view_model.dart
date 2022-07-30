@@ -8,7 +8,7 @@ abstract class ModuleScreenViewModel extends State<ModuleScreen> {
   double width = 0.0;
   double height = 0.0;
   List moduleList = [];
-  
+  bool isLoading = true;
 
   getDataModule() {
     CourseServices.getAllModuleByCourseId(widget.courseId).then((value) {
@@ -17,6 +17,7 @@ abstract class ModuleScreenViewModel extends State<ModuleScreen> {
         jsonObject.forEach((datas) {
           moduleList.add(datas);
         });
+        isLoading = false;
       });
     });
   }

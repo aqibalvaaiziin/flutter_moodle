@@ -9,8 +9,8 @@ import 'package:flutter_moodle/widgets/custom_widget.dart';
 import 'package:flutter_moodle/widgets/route.dart';
 
 abstract class LoginScreenViewModel extends State<LoginScreen> {
-  TextEditingController username = TextEditingController(text: "yahyahudan");
-  TextEditingController password = TextEditingController(text: "Yahya@123");
+  TextEditingController username = TextEditingController(text: "galihp");
+  TextEditingController password = TextEditingController(text: "Galih@123");
 
   double width = 0.0;
   double height = 0.0;

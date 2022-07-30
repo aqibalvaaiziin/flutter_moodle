@@ -11,7 +11,7 @@ class CourseServices {
     SharedPreferences sp = await SharedPreferences.getInstance();
     String token = sp.getString("token")!;
     return await dio.get(
-      "$baseUrl?wstoken=$token&wsfunction=core_course_get_courses_by_field&moodlewsrestformat=json&field=category&value=1",
+      "$baseUrl?wstoken=$token&wsfunction=core_course_get_courses_by_field&moodlewsrestformat=json&field=category&value=2",
     );
   }
 
@@ -28,7 +28,7 @@ class CourseServices {
     SharedPreferences sp = await SharedPreferences.getInstance();
     String token = sp.getString("token")!;
     return await dio.get(
-      "$baseUrl?wstoken=$token&wsfunction=mod_page_get_pages_by_courses &moodlewsrestformat=json&courseids[0]=$courseId",
+      "$baseUrl?wstoken=$token&wsfunction=mod_page_get_pages_by_courses&moodlewsrestformat=json&courseids[0]=$courseId",
     );
   }
 
@@ -75,4 +75,23 @@ class CourseServices {
       "$baseUrl?wstoken=$token&wsfunction=mod_forum_add_discussion_post&moodlewsrestformat=json&postid=$postId&subject=$subject&message=$message",
     );
   }
+
+  // QUIZZ
+
+  static Future getQuizIdFromCourseId(int courseId) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    String token = sp.getString("token")!;
+    return await dio.get(
+      "$baseUrl?wstoken=$token&wsfunction=mod_quiz_get_quizzes_by_courses&moodlewsrestformat=json&courseids[0]=$courseId",
+    );
+  }
+
+  static Future getDataAttemption(int quizId) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    String token = sp.getString("token")!;
+    return await dio.get(
+      "$baseUrl?wstoken=$token&wsfunction=mod_quiz_start_attempt&moodlewsrestformat=json&quizid=$quizId",
+    );
+  }
+
 }

@@ -11,4 +11,13 @@ class PreferencesData {
     sp.setString("token", token);
     sp.setInt("userId", userId);
   }
+
+  Future setQuizData(
+    int quizId,
+    int attemptId,
+  ) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.setInt("quizId", quizId);
+    sp.setInt("attemptId", attemptId);
+  }
 }

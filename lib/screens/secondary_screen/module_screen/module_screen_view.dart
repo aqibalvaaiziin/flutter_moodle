@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_moodle/helper/global_variable.dart';
 import 'package:flutter_moodle/helper/utils.dart';
+import 'package:flutter_moodle/screens/secondary_screen/attemption_quiz_screen/attemption_quiz_screen.dart';
 import 'package:flutter_moodle/screens/secondary_screen/detail_modul_screen/detail_modul_screen.dart';
 import 'package:flutter_moodle/screens/secondary_screen/forum_screen/forum_screen.dart';
 import 'package:flutter_moodle/widgets/custom_widget.dart';
 import 'package:flutter_moodle/widgets/route.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import './module_screen_view_model.dart';
 
 class ModuleScreenView extends ModuleScreenViewModel {
@@ -24,15 +26,17 @@ class ModuleScreenView extends ModuleScreenViewModel {
         ),
         backgroundColor: CustomColor.mainColor,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ...moduleList.map((e) {
-              return boxModule(e['name'], e['modules']);
-            })
-          ],
-        ),
-      ),
+      body: isLoading
+          ? loaderPage()
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  ...moduleList.map((e) {
+                    return boxModule(e['name'], e['modules']);
+                  })
+                ],
+              ),
+            ),
     );
   }
 
@@ -55,7 +59,9 @@ class ModuleScreenView extends ModuleScreenViewModel {
             decoration: BoxDecoration(
               color: name.toLowerCase().contains("forum")
                   ? Colors.orange
-                  : CustomColor.mainColor,
+                  : name.toLowerCase().contains("quiz")
+                      ? Colors.pinkAccent
+                      : CustomColor.mainColor,
               boxShadow: customShadow(),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(6),
@@ -120,8 +126,7 @@ class ModuleScreenView extends ModuleScreenViewModel {
           height * 0.015,
         ),
         onPressed: () {
-          if (type.toLowerCase() == "forum")
-            // ignore: curly_braces_in_flow_control_structures
+          if (type.toLowerCase() == "forum") {
             nextPage(
               context,
               ForumScreen(
@@ -129,14 +134,22 @@ class ModuleScreenView extends ModuleScreenViewModel {
                 courseId: widget.courseId,
               ),
             );
-          else
-            // ignore: curly_braces_in_flow_control_structures
+          } else if (type.toLowerCase() == "quiz") {
             nextPage(
                 context,
-                DetailModulScreen(
-                  name: subName,
+                AttemptionQuizScreen(
                   courseId: widget.courseId,
+                  quizName: subName,
                 ));
+          } else {
+            nextPage(
+              context,
+              DetailModulScreen(
+                name: subName,
+                courseId: widget.courseId,
+              ),
+            );
+          }
         },
         child: Center(
           child: Column(
@@ -170,12 +183,20 @@ class ModuleScreenView extends ModuleScreenViewModel {
       width: width * 0.1,
       height: width * 0.1,
       decoration: BoxDecoration(
-        color: type == "forum" ? Colors.orange : CustomColor.mainColor,
+        color: type == "forum"
+            ? Colors.orange
+            : type == "quiz"
+                ? Colors.pinkAccent
+                : CustomColor.mainColor,
         borderRadius: BorderRadius.circular(6),
       ),
       child: Center(
         child: Icon(
-          type == "forum" ? Icons.chat : Icons.book_rounded,
+          type == "forum"
+              ? Icons.chat
+              : type == "quiz"
+                  ? FontAwesomeIcons.question
+                  : Icons.book_rounded,
           color: Colors.white,
         ),
       ),

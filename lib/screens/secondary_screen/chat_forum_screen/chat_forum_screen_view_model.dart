@@ -16,10 +16,12 @@ abstract class ChatForumScreenViewModel extends State<ChatForumScreen> {
   String token = "";
   List dataChat = [];
   int isMe = 0;
+  // ignore: prefer_typing_uninitialized_variables
+  var firstData;
 
   scrollBehaviour() {
     scrollController.animateTo(
-      scrollController.position.maxScrollExtent,
+      width,
       duration: const Duration(milliseconds: 700),
       curve: Curves.ease,
     );
@@ -30,11 +32,23 @@ abstract class ChatForumScreenViewModel extends State<ChatForumScreen> {
       SharedPreferences sp = await SharedPreferences.getInstance();
       int userId = sp.getInt("userId")!;
       var jsonObject = jsonDecode(jsonEncode(value.data));
-
       setState(() {
         isMe = userId;
         mainObject = jsonObject['post'];
+        firstData = {
+          "replysubject": mainObject['subject'],
+          "message": mainObject['message'],
+          "timecreated": mainObject['timecreated'],
+          "author": {
+            "id": mainObject['author']['id'],
+            "fullname": mainObject['author']['fullname'],
+            "urls": {
+              "profileimage": mainObject['author']['urls']['profileimage'],
+            }
+          },
+        };
         token = sp.getString("token")!;
+
         getDataListDiscussion(mainObject['discussionid']);
       });
     });
@@ -45,6 +59,7 @@ abstract class ChatForumScreenViewModel extends State<ChatForumScreen> {
       var jsonObject = jsonDecode(jsonEncode(value.data));
       setState(() {
         dataChat.clear();
+        dataChat.add(firstData);
         jsonObject['posts'].forEach((element) {
           dataChat.add(element);
         });
