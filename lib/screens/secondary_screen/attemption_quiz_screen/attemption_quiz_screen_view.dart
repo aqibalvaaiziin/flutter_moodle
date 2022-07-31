@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_moodle/helper/utils.dart';
 import 'package:flutter_moodle/screens/secondary_screen/attemption_quiz_screen/attemption_quiz_screen_view_model.dart';
 import 'package:flutter_moodle/widgets/custom_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,15 +20,20 @@ class AttemptionQuizScreenView extends AttemptionQuizScreenViewModel {
         ),
         backgroundColor: Colors.pinkAccent,
       ),
-      body: Column(
-        children: [
-          subModule(),
-          const Expanded(
-            child: SizedBox(),
-          ),
-          buttonStartAttemp(),
-        ],
-      ),
+      body: isLoading
+          ? loaderPage()
+          : Column(
+              children: [
+                subModule(),
+                isDoneQuiz ? scoreBox() : const SizedBox(),
+                isDoneQuiz
+                    ? const SizedBox()
+                    : const Expanded(
+                        child: SizedBox(),
+                      ),
+                isDoneQuiz ? const SizedBox() : buttonStartAttemp(),
+              ],
+            ),
     );
   }
 
@@ -115,6 +121,32 @@ class AttemptionQuizScreenView extends AttemptionQuizScreenViewModel {
             fw: FontWeight.bold,
           ),
         ),
+      ),
+    );
+  }
+
+  Widget scoreBox() {
+    return Container(
+      width: width,
+      margin: EdgeInsets.symmetric(
+        horizontal: width * 0.03,
+        vertical: height * 0.02,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.orange,
+        boxShadow: customShadow(),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      padding: EdgeInsets.all(width * 0.04),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          customText(width * 0.033, "Nilai Anda :"),
+          SizedBox(height: height * 0.01),
+          customText(width * 0.1, UtilsData.parseScore(score),
+              fw: FontWeight.bold),
+        ],
       ),
     );
   }

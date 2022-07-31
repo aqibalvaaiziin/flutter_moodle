@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_moodle/api/services/course_services.dart';
+import 'package:flutter_moodle/api/services/quiz_services.dart';
 import 'package:flutter_moodle/helper/preferences_data.dart';
 import 'package:flutter_moodle/screens/secondary_screen/attemption_quiz_screen/attemption_quiz_screen.dart';
 import 'package:flutter_moodle/screens/secondary_screen/question_list_screen/question_list_screen.dart';
@@ -14,6 +15,8 @@ abstract class AttemptionQuizScreenViewModel
   double height = 0.0;
   bool isLoading = true;
   int quizId = 0;
+  bool isDoneQuiz = false;
+  String score = "";
   PreferencesData preferencesData = PreferencesData();
   final gagalAttempt = SnackBar(
     content: customText(
@@ -30,8 +33,22 @@ abstract class AttemptionQuizScreenViewModel
         if (element['name'] == widget.quizName) {
           setState(() {
             quizId = element['id'];
+            checkScoreQuiz();
           });
         }
+      });
+    });
+  }
+
+  checkScoreQuiz() {
+    QuizServices.checkScoreQuiz(quizId).then((value) {
+      var jsonObject = jsonDecode(jsonEncode(value.data));
+      setState(() {
+        if (jsonObject['success'] == true) {
+          isDoneQuiz = true;
+          score = jsonObject['data']['grade'];
+        }
+        isLoading = false;
       });
     });
   }

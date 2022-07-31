@@ -9,9 +9,11 @@ class UtilsData {
     String replacer = "";
     if (url.contains(".jpg")) {
       replacer = url.replaceAll(".jpg", ".jpg?token=$token");
-    }  if (url.contains(".jpeg")) {
+    }
+    if (url.contains(".jpeg")) {
       replacer = url.replaceAll(".jpeg", ".jpeg?token=$token");
-    }  if (url.contains(".png")) {
+    }
+    if (url.contains(".png")) {
       replacer = url.replaceAll(".png", ".png?token=$token");
     }
     return replacer;
@@ -21,5 +23,10 @@ class UtilsData {
     var dt = DateTime.fromMillisecondsSinceEpoch(time * 1000);
     var d24 = DateFormat('dd/MM/yyyy, HH:mm').format(dt);
     return d24;
+  }
+
+  static String parseScore(String score) {
+    double dataScore = double.parse(score);
+    return dataScore.toStringAsFixed(2);
   }
 }

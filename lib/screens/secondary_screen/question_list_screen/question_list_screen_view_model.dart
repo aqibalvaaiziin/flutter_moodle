@@ -10,7 +10,7 @@ import 'package:flutter_moodle/widgets/route.dart';
 abstract class QuestionListScreenViewModel extends State<QuestionListScreen> {
   double width = 0.0;
   double height = 0.0;
-  bool isLoading = false;
+  bool isLoading = true;
   List questions = [];
   final ujianSelesai = SnackBar(
     backgroundColor: Colors.green,
@@ -29,6 +29,7 @@ abstract class QuestionListScreenViewModel extends State<QuestionListScreen> {
         jsonObject['data'].forEach((element) {
           questions.add(element);
         });
+        isLoading = false;
       });
     });
   }

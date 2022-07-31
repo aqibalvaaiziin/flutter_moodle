@@ -6,6 +6,19 @@ class QuizServices {
   static Dio dio = Dio();
   static Response? response;
 
+  static Future checkScoreQuiz(int quizId) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    int userId = sp.getInt("userId")!;
+
+    return await dio.get(
+      "$externalUrl/findGrade",
+      queryParameters: {
+        "user_id": userId,
+        "quiz_id": quizId,
+      },
+    );
+  }
+
   static Future getQuestionList(String quizName) async {
     return await dio.get(
       "$externalUrl/questions",
