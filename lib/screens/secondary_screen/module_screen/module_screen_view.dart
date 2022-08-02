@@ -95,13 +95,16 @@ class ModuleScreenView extends ModuleScreenViewModel {
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return subModule(
-                      datas[index]['id'],
-                      datas[index]['name'],
-                      UtilsData.capitalize(datas[index]['modname']),
-                      datas.length,
-                      index,
-                    );
+                    return datas[index]['modname'].toLowerCase() == "forum" ||
+                            datas[index]['modname'].toLowerCase() == "page" 
+                        ? subModule(
+                            datas[index]['id'],
+                            datas[index]['name'],
+                            UtilsData.capitalize(datas[index]['modname']),
+                            datas.length,
+                            index,
+                          )
+                        : const SizedBox();
                   },
                 ),
         ],

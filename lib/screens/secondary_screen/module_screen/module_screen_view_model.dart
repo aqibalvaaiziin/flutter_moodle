@@ -15,7 +15,7 @@ abstract class ModuleScreenViewModel extends State<ModuleScreen> {
       var jsonObject = jsonDecode(jsonEncode(value.data));
       setState(() {
         jsonObject.forEach((datas) {
-          if (!datas['name'].toLowerCase().contains('quiz')) {
+          if (datas['name'].toLowerCase().contains('bab') || datas['name'].toLowerCase().contains('forum')) {
             moduleList.add(datas);
           }
         });
