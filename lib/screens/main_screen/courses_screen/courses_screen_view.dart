@@ -123,24 +123,25 @@ class CoursesScreenView extends CoursesScreenViewModel {
               ),
             ),
             Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(6),
-                    bottomLeft: Radius.circular(6),
-                  ),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(6),
+                  bottomLeft: Radius.circular(6),
                 ),
-                padding: EdgeInsets.symmetric(
-                  horizontal: width * 0.015,
-                  vertical: height * 0.02,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    customText(width * 0.035, courseName, fw: FontWeight.w800),
-                    const SizedBox(height: 10),
-                    customText(width * 0.03, teacherName, color: Colors.grey),
-                  ],
-                ))
+              ),
+              padding: EdgeInsets.symmetric(
+                horizontal: width * 0.015,
+                vertical: height * 0.02,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  customText(width * 0.035, courseName, fw: FontWeight.w800),
+                  const SizedBox(height: 10),
+                  customText(width * 0.03, teacherName, color: Colors.grey),
+                ],
+              ),
+            )
           ],
         ),
       ),

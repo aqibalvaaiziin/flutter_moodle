@@ -22,7 +22,9 @@ abstract class CoursesScreenViewModel extends State<CoursesScreen> {
       // ignore: avoid_print
       setState(() {
         jsonObject['courses'].forEach((e) {
-          courses.add(e);
+          if (e['visible'] == 1) {
+            courses.add(e);
+          }
         });
 
         token = sp.getString("token")!;

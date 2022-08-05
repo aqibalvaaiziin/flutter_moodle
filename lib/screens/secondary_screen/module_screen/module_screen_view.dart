@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_moodle/helper/global_variable.dart';
 import 'package:flutter_moodle/helper/utils.dart';
+import 'package:flutter_moodle/screens/secondary_screen/assignment_screen/assignment_screen.dart';
 import 'package:flutter_moodle/screens/secondary_screen/attemption_quiz_screen/attemption_quiz_screen.dart';
+import 'package:flutter_moodle/screens/secondary_screen/attendance_screen/attendance_screen.dart';
 import 'package:flutter_moodle/screens/secondary_screen/detail_modul_screen/detail_modul_screen.dart';
 import 'package:flutter_moodle/screens/secondary_screen/forum_screen/forum_screen.dart';
 import 'package:flutter_moodle/widgets/custom_widget.dart';
@@ -61,7 +63,11 @@ class ModuleScreenView extends ModuleScreenViewModel {
                   ? Colors.orange
                   : name.toLowerCase().contains("quiz")
                       ? Colors.pinkAccent
-                      : CustomColor.mainColor,
+                      : name.toLowerCase().contains("tugas")
+                          ? Colors.blue
+                          : name.toLowerCase().contains("absensi")
+                              ? Colors.deepPurple
+                              : CustomColor.mainColor,
               boxShadow: customShadow(),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(6),
@@ -96,7 +102,10 @@ class ModuleScreenView extends ModuleScreenViewModel {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return datas[index]['modname'].toLowerCase() == "forum" ||
-                            datas[index]['modname'].toLowerCase() == "page" 
+                            datas[index]['modname'].toLowerCase() == "page" ||
+                            datas[index]['modname'].toLowerCase() ==
+                                "attendance" ||
+                            datas[index]['modname'].toLowerCase() == "assign"
                         ? subModule(
                             datas[index]['id'],
                             datas[index]['name'],
@@ -144,6 +153,16 @@ class ModuleScreenView extends ModuleScreenViewModel {
                   courseId: widget.courseId,
                   quizName: subName,
                 ));
+          } else if (type.toLowerCase() == "assign") {
+            nextPage(
+                context,
+                AssignmentScreen(
+                  courseId: widget.courseId,
+                  title: subName,
+                  assignmentId: id,
+                ));
+          } else if (type.toLowerCase() == "attendance") {
+            nextPage(context, AttendanceScreen());
           } else {
             nextPage(
               context,
@@ -190,7 +209,11 @@ class ModuleScreenView extends ModuleScreenViewModel {
             ? Colors.orange
             : type == "quiz"
                 ? Colors.pinkAccent
-                : CustomColor.mainColor,
+                : type == "assign"
+                    ? Colors.blue
+                    : type == "attendance"
+                        ? Colors.deepPurple
+                        : CustomColor.mainColor,
         borderRadius: BorderRadius.circular(6),
       ),
       child: Center(
@@ -199,8 +222,13 @@ class ModuleScreenView extends ModuleScreenViewModel {
               ? Icons.chat
               : type == "quiz"
                   ? FontAwesomeIcons.question
-                  : Icons.book_rounded,
+                  : type == "assign"
+                      ? FontAwesomeIcons.upload
+                      : type == "attendance"
+                          ? FontAwesomeIcons.userCheck
+                          : Icons.book_rounded,
           color: Colors.white,
+          size: width * 0.045,
         ),
       ),
     );
