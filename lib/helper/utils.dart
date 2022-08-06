@@ -37,6 +37,30 @@ class UtilsData {
     return data;
   }
 
+  static bool checkLateTime(int endTime) {
+    var dataEndTime = DateTime.fromMillisecondsSinceEpoch(endTime * 1000);
+    bool data = false;
+    var now = DateTime.now();
+    if (now.isAfter(dataEndTime)) {
+      data = true;
+    } else {
+      data = false;
+    }
+    return data;
+  }
+
+  static bool checkOpenAttendance(int openTime) {
+    var dataOpenTime = DateTime.fromMillisecondsSinceEpoch(openTime * 1000);
+    bool data = false;
+    var now = DateTime.now();
+    if (now.isAfter(dataOpenTime)) {
+      data = true;
+    } else {
+      data = false;
+    }
+    return data;
+  }
+
   static String replaceCalibraces(String name) {
     String replaceFirst = name.replaceAll("(", "");
     String finalData = replaceFirst.replaceAll(")", "");

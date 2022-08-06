@@ -110,6 +110,7 @@ class ModuleScreenView extends ModuleScreenViewModel {
                             datas[index]['id'],
                             datas[index]['name'],
                             UtilsData.capitalize(datas[index]['modname']),
+                            datas[index]['instance'],
                             datas.length,
                             index,
                           )
@@ -125,6 +126,7 @@ class ModuleScreenView extends ModuleScreenViewModel {
     int id,
     String subName,
     String type,
+    int attendanceId,
     int dataLength,
     int index,
   ) {
@@ -162,7 +164,12 @@ class ModuleScreenView extends ModuleScreenViewModel {
                   assignmentId: id,
                 ));
           } else if (type.toLowerCase() == "attendance") {
-            nextPage(context, AttendanceScreen());
+            nextPage(
+                context,
+                AttendanceScreen(
+                  attendanceId: attendanceId,
+                  title: subName,
+                ));
           } else {
             nextPage(
               context,

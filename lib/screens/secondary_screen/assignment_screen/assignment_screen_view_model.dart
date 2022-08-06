@@ -125,6 +125,8 @@ abstract class AssignmentScreenViewModel extends State<AssignmentScreen> {
       fileName = null;
       paths = null;
       userAborted = false;
+      nameDataUpload = "";
+      itemId = 0;
     });
   }
 
@@ -148,6 +150,7 @@ abstract class AssignmentScreenViewModel extends State<AssignmentScreen> {
       setState(() {
         isLoading = false;
       });
+      resetState();
       getDataAssigment();
     });
   }
