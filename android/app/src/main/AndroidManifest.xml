@@ -2,7 +2,7 @@
     package="com.example.flutter_moodle">
     <uses-permission android:name="android.permission.INTERNET" /> 
    <application
-        android:label="flutter_moodle"
+        android:label="Moodle App V2"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

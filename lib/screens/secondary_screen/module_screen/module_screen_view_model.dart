@@ -18,6 +18,7 @@ abstract class ModuleScreenViewModel extends State<ModuleScreen> {
           if (datas['name'].toLowerCase().contains('bab') ||
               datas['name'].toLowerCase().contains('forum') ||
               datas['name'].toLowerCase().contains('absensi') ||
+              datas['name'].toLowerCase().contains('quiz') ||
               datas['name'].toLowerCase().contains('tugas')) {
             moduleList.add(datas);
           }

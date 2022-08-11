@@ -103,9 +103,9 @@ class ModuleScreenView extends ModuleScreenViewModel {
                   itemBuilder: (context, index) {
                     return datas[index]['modname'].toLowerCase() == "forum" ||
                             datas[index]['modname'].toLowerCase() == "page" ||
-                            datas[index]['modname'].toLowerCase() ==
-                                "attendance" ||
-                            datas[index]['modname'].toLowerCase() == "assign"
+                            datas[index]['modname'].toLowerCase() == "attendance" ||
+                            datas[index]['modname'].toLowerCase() == "assign" ||
+                            datas[index]['modname'].toLowerCase() == "quiz" 
                         ? subModule(
                             datas[index]['id'],
                             datas[index]['name'],
